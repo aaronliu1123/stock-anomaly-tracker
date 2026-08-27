@@ -36,8 +36,8 @@ try:
     if len(df) < 21:
         print("Insufficient trading bars generated for today yet.")
     else:
-        past_window = df.tail(21).iloc[:-1]   # Last 20 minutes baseline
-        current_candle = df.tail(1).iloc[0]   # Active 1-minute window
+        past_window = df.tail(22).iloc[:-2]   # 20-minute baseline, excluding the last 2 rows
+        current_candle = df.iloc[-2]          # the last FULLY CLOSED minute, not the live one
 
         avg_volume = past_window['Volume'].mean()
         current_volume = current_candle['Volume']
