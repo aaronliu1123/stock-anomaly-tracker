@@ -6,7 +6,7 @@ TELEGRAM_TOKEN = os.environ.get("TELEGRAM_TOKEN")
 TELEGRAM_CHAT_ID = os.environ.get("TELEGRAM_CHAT_ID")
 
 TICKER = "NVDA"               # Stock ticker to monitor (e.g., TSLA, AAPL, SMMT)
-VOLUME_THRESHOLD = 3.0        # Alert if volume is 3x the 20-minute rolling average
+VOLUME_THRESHOLD = 0.01        # Alert if volume is 3x the 20-minute rolling average
 PRICE_PCT_THRESHOLD = 0.015   # Alert if price swings more than 1.5% in 1 minute
 
 def send_telegram_alert(alert_body):
