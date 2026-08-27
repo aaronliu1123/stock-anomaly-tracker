@@ -49,6 +49,9 @@ try:
         vol_spike = current_volume > (avg_volume * VOLUME_THRESHOLD)
         price_spike = price_pct_change >= PRICE_PCT_THRESHOLD
 
+        print(f"DEBUG: avg_volume={avg_volume}, current_volume={current_volume}, threshold_line={avg_volume * VOLUME_THRESHOLD}, vol_spike={vol_spike}")
+        print(f"DEBUG: price_pct_change={price_pct_change:.4%}, price_spike={price_spike}")
+
         if vol_spike or price_spike:
             msg = f"🚨 *{TICKER} INTRADAY ANOMALY* 🚨\n\n"
             if vol_spike:
