@@ -13,6 +13,7 @@ def send_telegram_alert(alert_body):
     if not TELEGRAM_TOKEN or not TELEGRAM_CHAT_ID:
         print("❌ Error: Missing TELEGRAM_TOKEN or TELEGRAM_CHAT_ID variables.")
         return
+    print(f"DEBUG: token_length={len(TELEGRAM_TOKEN)}, token_repr={repr(TELEGRAM_TOKEN)}")
     try:
         url = f"https://api.telegram.org/bot{TELEGRAM_TOKEN}/sendMessage"
         payload = {
