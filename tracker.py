@@ -6,14 +6,14 @@ TELEGRAM_TOKEN = os.environ.get("TELEGRAM_TOKEN")
 TELEGRAM_CHAT_ID = os.environ.get("TELEGRAM_CHAT_ID")
 
 TICKER = "NVDA"               # Stock ticker to monitor (e.g., TSLA, AAPL, SMMT)
-VOLUME_THRESHOLD = 0.01        # Alert if volume is 3x the 20-minute rolling average
+VOLUME_THRESHOLD = 3.00        # Alert if volume is 3x the 20-minute rolling average
 PRICE_PCT_THRESHOLD = 0.015   # Alert if price swings more than 1.5% in 1 minute
 
 def send_telegram_alert(alert_body):
     if not TELEGRAM_TOKEN or not TELEGRAM_CHAT_ID:
         print("❌ Error: Missing TELEGRAM_TOKEN or TELEGRAM_CHAT_ID variables.")
         return
-    print(f"DEBUG: token_length={len(TELEGRAM_TOKEN)}, token_repr={repr(TELEGRAM_TOKEN)}")
+    # print(f"DEBUG: token_length={len(TELEGRAM_TOKEN)}, token_repr={repr(TELEGRAM_TOKEN)}")
     try:
         url = f"https://api.telegram.org/bot{TELEGRAM_TOKEN}/sendMessage"
         payload = {
@@ -50,8 +50,8 @@ try:
         vol_spike = current_volume > (avg_volume * VOLUME_THRESHOLD)
         price_spike = price_pct_change >= PRICE_PCT_THRESHOLD
 
-        print(f"DEBUG: avg_volume={avg_volume}, current_volume={current_volume}, threshold_line={avg_volume * VOLUME_THRESHOLD}, vol_spike={vol_spike}")
-        print(f"DEBUG: price_pct_change={price_pct_change:.4%}, price_spike={price_spike}")
+        #print(f"DEBUG: avg_volume={avg_volume}, current_volume={current_volume}, threshold_line={avg_volume * VOLUME_THRESHOLD}, vol_spike={vol_spike}")
+        #print(f"DEBUG: price_pct_change={price_pct_change:.4%}, price_spike={price_spike}")
 
         if vol_spike or price_spike:
             msg = f"🚨 *{TICKER} INTRADAY ANOMALY* 🚨\n\n"
