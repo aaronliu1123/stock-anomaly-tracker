@@ -1,1 +1,24 @@
+name: Execute Intraday Stock Tracker
+on:
+  schedule:
+    # Every 5 minutes, 13:00-20:59 UTC, Mon-Fri (covers 9:30am-4pm ET across DST)
+    - cron: '*/5 13-20 * * 1-5'
+  workflow_dispatch: # Enables a manual "Run workflow" button in the UI
 
+jobs:
+  run-anomaly-script:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Copy Repository Files
+        uses: actions/checkout@v4
+      - name: Initialize Python Runtime
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+      - name: Install Data Modules
+        run: pip install yfinance pandas requests
+      - name: Run Tracker Script
+        env:
+          TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: python tracker.py
